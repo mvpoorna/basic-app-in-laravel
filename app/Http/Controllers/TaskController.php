@@ -6,6 +6,8 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\TaskRepository;
+use App\Task;
+use Session;
 
 class TaskController extends Controller
 {
@@ -30,6 +32,11 @@ class TaskController extends Controller
         ]);
     }
 
+    public function show(Request $request)
+    {
+        return 123;
+    }
+
 	public function store(Request $request)
 	{
 	    $this->validate($request, [
@@ -48,7 +55,8 @@ class TaskController extends Controller
 	    $this->authorize('destroy', $task);
 
 	    $task->delete();
-
-    	return redirect('/tasks');
+        // redirect
+        Session::flash('message', 'Successfully deleted!');
+    	return Redirect::to('tasks');
 	}
 }

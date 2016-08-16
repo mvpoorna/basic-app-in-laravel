@@ -13,6 +13,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/examples/dashboard/dashboard.css">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
     <style>
@@ -26,8 +27,8 @@
     </style>
 </head>
 <body id="app-layout">
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
             <div class="navbar-header">
 
                 <!-- Collapsed Hamburger -->
@@ -71,8 +72,28 @@
             </div>
         </div>
     </nav>
-
-    @yield('content')
+    @if (Auth::user())
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li {{{ (Request::is('home') ? 'class=active' : '') }}}><a href="{{ url('/home') }}"> Home <span class="sr-only">(current)</span></a></li>
+                    <li {{{ (Request::is('tasks') ? 'class=active' : '') }}}><a href="{{ url('/tasks') }}">Tasks</a></li>
+                    <li><a href="#">Analytics</a></li>
+                    <li><a href="#">Export</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            @if (Session::has('message'))
+                <div class="alert alert-info">{{ Session::get('message') }}</div>
+            @endif
+    @endif
+                @yield('content')
+    @if (!Auth::guest())
+            </div>
+        </div>
+    </div>
+    @endif
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
