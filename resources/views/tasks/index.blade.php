@@ -29,7 +29,7 @@
             </div>
         </form>
         
-         @if (count($tasks) > 0)
+         @if (count($tasksList) > 0)
         <div class="panel panel-default">
             <div class="panel-heading">
                 Current Tasks
@@ -46,7 +46,7 @@
 
                     <!-- Table Body -->
                     <tbody>
-                        @foreach ($tasks as $task)
+                        @foreach ($tasksList as $task)
                             <tr>
                                 <!-- Task Name -->
                                 <td class="table-text">

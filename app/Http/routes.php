@@ -19,7 +19,7 @@ Route::auth();
 
 Route::get('home', 'HomeController@index');
 
-Route::get('tasks', 'TaskController@index');
-Route::post('tasks', 'TaskController@store');
-Route::delete('tasks/{id}', 'TaskController@destroy');
+Route::resource('tasks', 'TaskController');
+//Route::post('task', 'TaskController@store');
+//Route::delete('task/{id}', 'TaskController@destroy');
 

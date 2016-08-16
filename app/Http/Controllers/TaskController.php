@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Http\Redirect;
 use App\Http\Controllers\Controller;
 use App\Repositories\TaskRepository;
 use App\Task;
@@ -28,13 +29,13 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         return view('tasks.index', [
-            'tasks' => $this->tasks->forUser($request->user()),
+            'tasksList' => $this->tasks->forUser($request->user()),
         ]);
     }
 
     public function show(Request $request)
     {
-        return 123;
+        
     }
 
 	public function store(Request $request)
@@ -52,6 +53,7 @@ class TaskController extends Controller
 
 	public function destroy(Request $request, Task $task)
 	{
+        dd($task);
 	    $this->authorize('destroy', $task);
 
 	    $task->delete();
